@@ -1,0 +1,77 @@
+type Comment {
+  id: ID!
+  post_id: ID!
+  body: String!
+  Post: Post
+}
+
+input CommentFilter {
+  q: String
+  ids: [ID]
+  id: ID
+  post_id: ID
+  body: String
+}
+
+type ListMetadata {
+  count: Int
+}
+
+type Mutation {
+  createPost(id: ID!, title: String!, views: Int!, user_id: ID!): Post
+  updatePost(id: ID!, title: String, views: Int, user_id: ID): Post
+  removePost(id: ID!): Boolean
+  createUser(id: ID!, name: String!): User
+  updateUser(id: ID!, name: String): User
+  removeUser(id: ID!): Boolean
+  createComment(id: ID!, post_id: ID!, body: String!): Comment
+  updateComment(id: ID!, post_id: ID, body: String): Comment
+  removeComment(id: ID!): Boolean
+}
+
+type Post {
+  id: ID!
+  title: String!
+  views: Int!
+  user_id: ID!
+  User: User
+  Comments: [Comment]
+}
+
+input PostFilter {
+  q: String
+  ids: [ID]
+  id: ID
+  title: String
+  views: Int
+  user_id: ID
+  views_lt: Int
+  views_lte: Int
+  views_gt: Int
+  views_gte: Int
+}
+
+type Query {
+  Post(id: ID!): Post
+  allPosts(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: PostFilter): [Post]
+  _allPostsMeta(page: Int, perPage: Int, filter: PostFilter): ListMetadata
+  User(id: ID!): User
+  allUsers(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: UserFilter): [User]
+  _allUsersMeta(page: Int, perPage: Int, filter: UserFilter): ListMetadata
+  Comment(id: ID!): Comment
+  allComments(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: CommentFilter): [Comment]
+  _allCommentsMeta(page: Int, perPage: Int, filter: CommentFilter): ListMetadata
+}
+
+type User {
+  id: ID!
+  name: String!
+  Posts: [Post]
+}
+
+input UserFilter {
+  q: String
+  ids: [ID]
+  id: ID
+  name: String
+}

@@ -1,0 +1,6 @@
+.main-grid {
+  display: grid;
+  grid-template-areas: "hd hd hd hd
+    m m m m
+    ft ft ft ft";
+}

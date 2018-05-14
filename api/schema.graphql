@@ -2,6 +2,7 @@ type Comment {
   id: ID!
   post_id: ID!
   body: String!
+  date: Date!
   Post: Post
 }
 
@@ -11,27 +12,48 @@ input CommentFilter {
   id: ID
   post_id: ID
   body: String
+  date: Date
+  date_lt: Date
+  date_lte: Date
+  date_gt: Date
+  date_gte: Date
 }
+
+# Date type
+scalar Date
 
 type ListMetadata {
   count: Int
 }
 
 type Mutation {
-  createPost(id: ID!, title: String!, views: Int!, user_id: ID!): Post
-  updatePost(id: ID!, title: String, views: Int, user_id: ID): Post
+  createPost(
+    id: ID!
+    title: String!
+    body: String!
+    views: Int!
+    user_id: ID!
+  ): Post
+  updatePost(
+    id: ID!
+    title: String
+    body: String
+    views: Int
+    user_id: ID
+  ): Post
   removePost(id: ID!): Boolean
   createUser(id: ID!, name: String!): User
   updateUser(id: ID!, name: String): User
   removeUser(id: ID!): Boolean
-  createComment(id: ID!, post_id: ID!, body: String!): Comment
-  updateComment(id: ID!, post_id: ID, body: String): Comment
+  createComment(id: ID!, post_id: ID!, body: String!, date: Date!): Comment
+  updateComment(id: ID!, post_id: ID, body: String, date: Date): Comment
   removeComment(id: ID!): Boolean
 }
 
 type Post {
   id: ID!
   title: String!
+  body: String!
   views: Int!
   user_id: ID!
   User: User
@@ -43,6 +65,7 @@ input PostFilter {
   ids: [ID]
   id: ID
   title: String
+  body: String
   views: Int
   user_id: ID
   views_lt: Int
@@ -53,13 +76,31 @@ input PostFilter {
 
 type Query {
   Post(id: ID!): Post
-  allPosts(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: PostFilter): [Post]
+  allPosts(
+    page: Int
+    perPage: Int
+    sortField: String
+    sortOrder: String
+    filter: PostFilter
+  ): [Post]
   _allPostsMeta(page: Int, perPage: Int, filter: PostFilter): ListMetadata
   User(id: ID!): User
-  allUsers(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: UserFilter): [User]
+  allUsers(
+    page: Int
+    perPage: Int
+    sortField: String
+    sortOrder: String
+    filter: UserFilter
+  ): [User]
   _allUsersMeta(page: Int, perPage: Int, filter: UserFilter): ListMetadata
   Comment(id: ID!): Comment
-  allComments(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: CommentFilter): [Comment]
+  allComments(
+    page: Int
+    perPage: Int
+    sortField: String
+    sortOrder: String
+    filter: CommentFilter
+  ): [Comment]
   _allCommentsMeta(page: Int, perPage: Int, filter: CommentFilter): ListMetadata
 }
 

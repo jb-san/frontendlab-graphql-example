@@ -1,7 +1,6 @@
 # Frontend-lab
 
-this is an example project to get you up and started with a simple graphql server and create react app.
-
+this is an example project to get you up and started with a simple graphql server and create react app (or use what you want).
 
 ## Goals
 
@@ -16,11 +15,14 @@ git clone https://github.com/jb-san/frontendlab-graphql-example
 cd frontendlab-graphql-example
 npm i && cd api/ && npm i
 ```
+
 and run
+
 ```
 npm start
-npm start:api
+npm run start:api
 ```
+
 in separat terminals
 
 ## Resources
